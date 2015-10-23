@@ -17,6 +17,7 @@ public class SplashActivity extends AppCompatActivity {
             public void run() {
                 //Do something after 1500ms
                 startActivity(new Intent(SplashActivity.this, IntroActivity.class));
+                SplashActivity.this.finish();
             }
         }, 1500);
     }
