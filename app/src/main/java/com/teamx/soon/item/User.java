@@ -21,6 +21,9 @@ public class User {
     public String facebookAccessToken;
     public String email;
     public String photoUrl;
+    public int age;
+    public int gender;
+    public String username;
 
     public long lastUpdated;
 

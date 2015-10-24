@@ -17,6 +17,8 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestHandle;
 import com.loopj.android.http.RequestParams;
 import com.loopj.android.http.SyncHttpClient;
+import com.teamx.soon.activity.EventActivity;
+import com.teamx.soon.item.Event;
 import com.teamx.soon.item.User;
 
 import org.json.JSONArray;
@@ -32,49 +34,14 @@ public class HttpClient {
 
     private static final String GEOCODING = "http://maps.googleapis.com/maps/api/geocode/json";
 
-    private static final String SUB_GET_SICK_PATIENT = "patient/getsickpatient";
-    private static final String SUB_GET_PATIENT_INJECTION = "patient/getpatientinjection";
-    private static final String SUB_GET_PATIENT = "patient/getpatientuser";
     private static final String SUB_GET_USER = "user/getuser";
-    private static final String SUB_GET_PHARMACIES = "pharmacy/getPharmacy";
-    private static final String SUB_GET_PHARMACIES_COUNT = "pharmacy/getPharmacyCount";
-    private static final String SUB_GET_HEIGHT_WEIGHT = "patient/getHeightWeight";
-    private static final String SUB_GET_MEDICINE_REMINDS = "medicineRemind/GetMedicineRemindOfPatient";
-    private static final String SUB_GET_EVERYTHING = "super/superapi";
-
-    private static final String SUB_EDIT_USER = "user/updateInfoUser";
-    private static final String SUB_EDIT_PATIENT = "patient/updatepatient";
-    private static final String SUB_EDIT_SCHEDULE = "patient/updateis";
-    private static final String SUB_EDIT_SICK_PATIENT = "sick/updatesickpatient";
-    private static final String SUB_EDIT_MEDICINE_REMIND = "medicineRemind/editRemind";
-    private static final String SUB_EDIT_PHARMACY_PLACE = "pharmacy/AddPharmacyCoordinates";
 
     private static final String SUB_CREATE_USER = "user/createuser";
-    private static final String SUB_CREATE_PATIENT = "patient/createpatientuser";
-    private static final String SUB_CREATE_SICK_PATIENT = "sick/createsickuser";
-    private static final String SUB_CREATE_SUPER_PATIENT = "super/createpatientandsick";
-    private static final String SUB_CREATE_HEIGHT_WEIGHT = "patient/createHeightWeight";
-    private static final String SUB_CREATE_MEDICINE_REMIND = "medicineRemind/addRemind";
-    private static final String SUB_CREATE_DOCTOR = "doctor/addDoctor";
-    private static final String SUB_CREATE_PHARMACY = "pharmacy/createPharmacy";
 
-    private static final String SUB_DELETE_PATIENT = "patient/deleteapatient";
-    private static final String SUB_DELETE_MEDICINE_REMIND = "medicineRemind/deleteRemind";
+    private static final String SUB_LOGIN_WITH_FACEBOOK = "user/loginWithFacebook";
 
-    private static final String SUB_POST_REVIEW = "review/addReview";
-    private static final String SUB_DELETE_REVIEW = "review/deleteReview";
-    private static final String SUB_GET_REVIEWS = "review/getReview";
-
-    private static final String SUB_GET_DOCTORS = "doctor/getDoctor";
-    private static final String SUB_GET_MY_DOCTORS = "doctor/getDoctorByUser";
-    private static final String SUB_GET_DOCTOR_COUNT = "doctor/countRecord";
-    private static final String SUB_GET_MY_DOCTOR_COUNT = "doctor/countRecordByUser";
-    private static final String SUB_GET_DOCTORS_FILTERED = "doctor/SearchDoctorByAddressAndKeywords";
-
-    private static final String SUB_GET_MY_PHARMACY = "pharmacy/getPharmacyByUser";
-    private static final String SUB_GET_MY_PHARMACY_COUNT = "pharmacy/countRecordByUser";
-    private static final String SUB_GET_PHARMACIES_FILTERED = "pharmacy/SearchPharmacyByAddressAndKeywords";
-    private static final String SUB_GET_CLINICS = "clinic/getClinic";
+    private static final String SUB_GET_EVENT = "event/getEvent";
+    private static final String SUB_GET_EVENT_BY_USER = "http://128.199.167.255/hatch/event/getEventByUser";
 
     private static AsyncHttpClient client = new AsyncHttpClient();
     private static AsyncHttpClient syncClient = new SyncHttpClient();
@@ -165,33 +132,135 @@ public class HttpClient {
         });
     }
 
-    public static RequestHandle freeGeocoding(@NonNull String address, @Nullable final GeocodingResponse geocodingResponse) {
+    public static RequestHandle facebookLogin(@NonNull User user, @NonNull String deviceId, final CreateResponse createResponse) {
         RequestParams params = new RequestParams();
-        params.put("address", address);
 
-        return client.get(GEOCODING, params, new JsonHttpResponseHandler() {
+        params.put("facebook_id", user.accId);
+        params.put("age", user.age + "");
+        params.put("gender", user.gender + "");
+        params.put("facebook_access_token", user.facebookAccessToken);
+        params.put("photo", user.photoUrl);
+        params.put("username", user.username);
+        params.put("device_id", deviceId);
+
+        return post(SUB_LOGIN_WITH_FACEBOOK, params, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                if (geocodingResponse != null) geocodingResponse.onResponse(response);
-
                 try {
-                    String responseStr = response.getString("status");
-
-                    if (responseStr.equalsIgnoreCase("OK")) {
-                        JSONObject locationObj = response.getJSONArray("results").getJSONObject(0).getJSONObject("geometry").getJSONObject("location");
-
-                        double latitude = locationObj.getDouble("lat");
-                        double longitude = locationObj.getDouble("lng");
-
-                        if (geocodingResponse != null)
-                            geocodingResponse.onFirstGeometry(latitude, longitude);
-                    } else {
-                        if (geocodingResponse != null) geocodingResponse.onFailure(responseStr);
-                    }
+                    JSONObject user_data = response.getJSONObject("data");
+                    int newUserId = user_data.optInt("id", -1);
+                    createResponse.onSuccess(newUserId);
                 } catch (JSONException e) {
-                    e.printStackTrace();
-                    if (geocodingResponse != null) geocodingResponse.onFailure(e.getMessage());
+
                 }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                createResponse.onFailure(throwable.getMessage());
+            }
+        });
+    }
+
+    public static RequestHandle getEvent(@NonNull int limit, @NonNull int offset, final CreateResponse createResponse) {
+        RequestParams params = new RequestParams();
+
+        params.put("limit", limit);
+        params.put("offset", offset);
+
+        return get(SUB_GET_EVENT, params, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                try {
+                    JSONArray eventJson = response.getJSONArray("data");
+                    ListResponse<Event> eventResponse = new ListResponse<Event>() {
+                        @Override
+                        public void onSuccess(ArrayList<Event> objects) {
+
+                        }
+
+                        @Override
+                        public void onFailure(String message) {
+
+                        }
+                    };
+
+                    ArrayList<Event> eventList = new ArrayList<Event>();
+                    for (int i = 0; i < eventJson.length(); i++) {
+                        JSONObject c = eventJson.getJSONObject(i);
+
+                        String name = c.getString("name");
+                        String image = getAbsoluteUrl(c.getString("image"));
+                        String description = c.getString("description");
+                        String status = c.getString("status");
+                        String date = c.getString("date");
+                        String address = c.getString("address");
+                        String type = c.getString("type");
+
+                        Event event = new Event(name, image, address, date, type, status, description);
+                        eventList.add(event);
+                    }
+                    eventResponse.onSuccess(eventList);
+                } catch (JSONException e) {
+
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                createResponse.onFailure(throwable.getMessage());
+            }
+        });
+    }
+
+    public static RequestHandle getEventByUser(@NonNull String userId, @NonNull int limit, @NonNull int offset, final CreateResponse createResponse) {
+        RequestParams params = new RequestParams();
+
+        params.put("user_id", userId);
+        params.put("limit", limit);
+        params.put("offset", offset);
+
+        return get(SUB_GET_EVENT, params, new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                try {
+                    JSONArray eventJson = response.getJSONArray("data");
+                    ListResponse<Event> eventResponse = new ListResponse<Event>() {
+                        @Override
+                        public void onSuccess(ArrayList<Event> objects) {
+
+                        }
+
+                        @Override
+                        public void onFailure(String message) {
+
+                        }
+                    };
+
+                    ArrayList<Event> eventList = new ArrayList<Event>();
+                    for (int i = 0; i < eventJson.length(); i++) {
+                        JSONObject c = eventJson.getJSONObject(i);
+
+                        String name = c.getString("name");
+                        String image = getAbsoluteUrl(c.getString("image"));
+                        String description = c.getString("description");
+                        String status = c.getString("status");
+                        String date = c.getString("date");
+                        String address = c.getString("address");
+                        String type = c.getString("type");
+
+                        Event event = new Event(name, image, address, date, type, status, description);
+                        eventList.add(event);
+                    }
+                    eventResponse.onSuccess(eventList);
+                } catch (JSONException e) {
+
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                createResponse.onFailure(throwable.getMessage());
             }
         });
     }
