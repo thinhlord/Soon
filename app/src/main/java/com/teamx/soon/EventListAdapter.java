@@ -53,7 +53,7 @@ public class EventListAdapter extends BaseAdapter {
             viewHolder.image = (ImageView) convertView.findViewById(R.id.event_image);
             viewHolder.name = (TextView) convertView.findViewById(R.id.event_name);
             viewHolder.date = (TextView) convertView.findViewById(R.id.event_date);
-
+            viewHolder.place = (TextView) convertView.findViewById(R.id.event_place);
             // store the holder with the view.
             convertView.setTag(viewHolder);
 
@@ -75,6 +75,7 @@ public class EventListAdapter extends BaseAdapter {
 
             viewHolder.name.setText(event.name);
             viewHolder.date.setText(event.date);
+            viewHolder.place.setText(event.address);
             Picasso.with(mContext).load(event.image).into(viewHolder.image);
         }
         return convertView;
@@ -84,6 +85,7 @@ public class EventListAdapter extends BaseAdapter {
         ImageView image;
         TextView name;
         TextView date;
+        TextView place;
     }
 
 }

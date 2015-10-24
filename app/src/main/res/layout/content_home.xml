@@ -8,26 +8,14 @@
     tools:context=".HomeActivity"
     tools:showIn="@layout/app_bar_home">
 
-    <TextView
-        android:id="@+id/textView3"
-        style="@style/CardTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:padding="5dp"
-        android:text="Sự kiện chém gió" />
-
     <ListView
         android:id="@+id/event_list"
-        android:scrollbars="none"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="20.0sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView3"
-        android:layout_margin="10dp">
-
+        android:layout_margin="10dp"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="8sp"
+        android:scrollbars="none">
     </ListView>
 
 </RelativeLayout>

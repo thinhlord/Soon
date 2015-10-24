@@ -15,156 +15,254 @@
             android:orientation="vertical">
 
             <ImageView
-                android:layout_gravity="center"
                 android:id="@+id/event_image"
-                android:scaleType="fitCenter"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
+                android:layout_gravity="center"
                 android:contentDescription="@string/app_name"
+                android:scaleType="fitCenter"
                 android:src="@drawable/ic_logo" />
 
-            <LinearLayout
+            <RelativeLayout
+                android:id="@+id/titleSection"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:orientation="vertical">
+                android:layout_marginLeft="@dimen/size_byte"
+                android:layout_marginRight="@dimen/size_byte"
+                android:layout_marginTop="@dimen/size_byte"
+                android:background="@drawable/card"
+                android:padding="@dimen/size_byte">
 
                 <TextView
                     android:id="@+id/event_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Việt Nam vô đối"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="20sp" />
 
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="10dp" />
+                    android:paddingTop="@dimen/size_half_byte"
+                    android:text="Run The Jewels"
+                    android:textColor="@color/color_feed_primary"
+                    android:textSize="@dimen/size_text_header" />
 
-                <LinearLayout
-                    android:id="@+id/event_place_container"
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/locationDateSection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/titleSection"
+                android:layout_marginLeft="@dimen/size_byte"
+                android:layout_marginRight="@dimen/size_byte"
+                android:layout_marginTop="@dimen/size_byte"
+                android:background="@drawable/card"
+                android:padding="@dimen/size_byte">
+
+                <TextView
+                    android:id="@+id/locationTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@android:drawable/list_selector_background"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
 
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:contentDescription="@string/app_name"
-                        android:src="@drawable/ic_logo" />
+                    android:paddingTop="@dimen/size_half_byte"
+                    android:text="LOCATION"
+                    android:textColor="@color/color_feed_primary"
+                    android:textSize="@dimen/size_text_secondary"
+                    android:textStyle="bold" />
 
+                <TextView
+                    android:id="@+id/event_place"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/locationTitle"
+                    android:paddingRight="30dp"
+                    android:paddingTop="@dimen/size_half_byte"
+                    android:text="Iron City, Birmingham, AL"
+                    android:textColor="@color/color_primary_text"
+                    android:textSize="@dimen/size_text_primary" />
 
-                    <TextView
-                        android:id="@+id/event_place"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="4dp"
-                        android:layout_marginStart="4dp"
-                        android:maxLength="255"
-                        android:padding="5dp"
-                        android:text="Chịu chả biết chỗ nào"
-                        android:textSize="18sp" />
-                </LinearLayout>
+                <ImageButton
+                    android:id="@+id/btn_direction"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_alignRight="@id/locationTitle"
+                    android:layout_alignTop="@id/event_place"
+                    android:background="@android:color/transparent"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_logo"
+                    android:tint="@color/color_accent" />
 
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="25dp" />
-
-                <LinearLayout
-                    android:id="@+id/event_date_container"
+                <TextView
+                    android:id="@+id/dateTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@android:drawable/list_selector_background"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:layout_below="@id/event_place"
 
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:contentDescription="@string/app_name"
-                        android:src="@drawable/ic_logo" />
+                    android:paddingTop="@dimen/size_byte"
+                    android:text="DATE"
+                    android:textColor="@color/color_feed_primary"
+                    android:textSize="@dimen/size_text_secondary"
+                    android:textStyle="bold" />
 
+                <TextView
+                    android:id="@+id/event_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/dateTitle"
 
-                    <TextView
-                        android:id="@+id/event_date"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="4dp"
-                        android:layout_marginStart="4dp"
-                        android:maxLength="255"
-                        android:padding="5dp"
-                        android:text="Chịu chả biết mấy giờ"
-                        android:textSize="18sp" />
-                </LinearLayout>
+                    android:paddingTop="@dimen/size_half_byte"
+                    android:text="Sat Feb 28 2005 \n05:00 pm"
+                    android:textColor="@color/color_primary_text"
+                    android:textSize="@dimen/size_text_primary" />
 
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="25dp" />
+                <Button
+                    android:id="@+id/btn_add_to_calendar"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/event_date"
+                    android:layout_alignRight="@id/dateTitle"
+                    android:layout_alignTop="@id/event_date"
+                    android:layout_centerVertical="true"
+                    android:background="@android:color/transparent"
+                    android:text="ADD TO CALENDAR"
+                    android:textColor="@color/color_accent" />
 
-                <LinearLayout
+                <TextView
+                    android:id="@+id/catTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:layout_below="@id/event_date"
 
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:contentDescription="@string/app_name"
-                        android:src="@drawable/ic_logo" />
+                    android:paddingTop="@dimen/size_byte"
+                    android:text="CATEGORY"
+                    android:textColor="@color/color_feed_primary"
+                    android:textSize="@dimen/size_text_secondary"
+                    android:textStyle="bold" />
 
+                <TextView
+                    android:id="@+id/event_category"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/catTitle"
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="4dp"
-                        android:layout_marginStart="4dp"
-                        android:maxLength="255"
-                        android:padding="5dp"
-                        android:text="Thông tin"
-                        android:textSize="18sp" />
-                </LinearLayout>
+                    android:paddingTop="@dimen/size_half_byte"
+                    android:text="Hội thảo"
+                    android:textColor="@color/color_secondary_text"
+                    android:textSize="@dimen/size_text_primary" />
+            </RelativeLayout>
 
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="10dp" />
+            <LinearLayout
+                android:id="@+id/rvspSection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/locationDateSection"
+                android:layout_marginLeft="@dimen/size_byte"
+                android:layout_marginRight="@dimen/size_byte"
+                android:layout_marginTop="@dimen/size_byte"
+                android:background="@drawable/card"
+                android:padding="@dimen/size_byte">
+
+                <TextView
+                    android:id="@+id/rvsp_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingBottom="@dimen/size_word"
+                    android:paddingRight="@dimen/size_word"
+                    android:paddingTop="@dimen/size_word"
+                    android:text="ARE YOU ATTENDING?"
+                    android:textColor="@color/color_feed_primary"
+                    android:textSize="@dimen/size_text_secondary"
+                    android:textStyle="bold" />
+
+                <!--<Button-->
+                <!--android:id="@+id/btn_maybe"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="36dp"-->
+                <!--android:layout_margin="0dp"-->
+                <!--android:layout_weight="0.5"-->
+                <!--android:background="@color/color_window_background"-->
+                <!--android:elevation="8dp"-->
+                <!--android:text="MAY BE" />-->
+
+                <Button
+                    android:id="@+id/btn_yes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:layout_marginLeft="8dp"
+                    android:background="@color/color_accent"
+                    android:text="YES"
+                    android:textColor="@android:color/white" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/detailSection"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/rvspSection"
+                android:layout_marginLeft="@dimen/size_byte"
+                android:layout_marginRight="@dimen/size_byte"
+                android:layout_marginTop="@dimen/size_byte"
+                android:background="@drawable/card"
+                android:padding="@dimen/size_byte">
+
+                <TextView
+                    android:id="@+id/detailTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:paddingTop="@dimen/size_half_byte"
+                    android:text="DETAILS"
+                    android:textColor="@color/color_feed_primary"
+                    android:textSize="@dimen/size_text_secondary"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/event_des"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Chỗ này chán vãi" />
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/detailTitle"
 
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="10dp" />
+                    android:paddingTop="@dimen/size_half_byte"
+                    android:text="It was a humorously perilous business for both of us. For, before we proceed further, it must be said that … monkey-rope was fast at both ends; fast to Queequeg's broad canvas belt, and fast to my narrow leather one. So that for better or for worse, we two, for the time, were wedded; and should poor Queequeg sink to rise no more, then both usage and honour demanded, that instead of cutting the cord, it should drag me down in his wake. So, then, an elongated Siamese ligature united us. Queequeg was my own inseparable twin brother; nor could I any way get rid of the dangerous liabilities which the hempen bond entailed."
+                    android:textColor="@color/color_primary_text"
+                    android:textSize="@dimen/size_text_primary" />
+            </RelativeLayout>
 
-                <LinearLayout
+            <RelativeLayout
+                android:id="@+id/organizerSection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/detailSection"
+                android:layout_marginLeft="@dimen/size_byte"
+                android:layout_marginRight="@dimen/size_byte"
+                android:layout_marginTop="@dimen/size_byte"
+                android:background="@drawable/card"
+                android:padding="@dimen/size_byte">
+
+                <TextView
+                    android:id="@+id/organizerTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
 
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:contentDescription="@string/app_name"
-                        android:src="@drawable/ic_logo" />
+                    android:paddingTop="@dimen/size_half_byte"
+                    android:text="ORGANIZER"
+                    android:textColor="@color/color_feed_primary"
+                    android:textSize="@dimen/size_text_secondary"
+                    android:textStyle="bold" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="4dp"
-                        android:layout_marginStart="4dp"
-                        android:maxLength="255"
-                        android:padding="5dp"
-                        android:text="Sẽ tham dự: chưa có"
-                        android:textSize="18sp" />
-                </LinearLayout>
+                <TextView
+                    android:id="@+id/organizer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/organizerTitle"
 
-            </LinearLayout>
+                    android:paddingTop="@dimen/size_half_byte"
+                    android:text="Jewels Run Center, LA"
+                    android:textColor="@color/color_primary_text"
+                    android:textSize="@dimen/size_text_primary" />
+
+            </RelativeLayout>
+
 
         </LinearLayout>
 

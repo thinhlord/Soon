@@ -9,4 +9,15 @@
     <dimen name="appbar_padding_top">8dp</dimen>
     <dimen name="app_bar_height">180dp</dimen>
     <dimen name="text_margin">16dp</dimen>
+    <dimen name="size_word">16dp</dimen>
+    <dimen name="size_text_header">26sp</dimen>
+    <dimen name="size_text_primary">16sp</dimen>
+    <dimen name="size_text_secondary">14sp</dimen>
+    <dimen name="size_half_byte">4dp</dimen>
+    <dimen name="size_byte">8dp</dimen>
+    <dimen name="event_thumbnail_width">54dp</dimen>
+    <dimen name="event_thumbnail_height">80dp</dimen>
+    <dimen name="app_bar_top_padding">0dp</dimen>
+    <dimen name="default_elevation">8dp</dimen>
+    <dimen name="slide_up_panel_height">56dp</dimen>
 </resources>

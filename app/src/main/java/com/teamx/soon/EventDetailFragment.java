@@ -62,27 +62,27 @@ public class EventDetailFragment extends Fragment {
             TextView date = (TextView) view.findViewById(R.id.event_date);
             TextView des = (TextView) view.findViewById(R.id.event_des);
             ImageView image = (ImageView) view.findViewById(R.id.event_image);
-            View dateContainer = view.findViewById(R.id.event_date_container);
-            View placeContainer = view.findViewById(R.id.event_place_container);
+//            View dateContainer = view.findViewById(R.id.event_date_container);
+//            View placeContainer = view.findViewById(R.id.event_place_container);
 
             name.setText(event.name);
             place.setText(event.address);
             date.setText(event.date);
             des.setText(event.des);
             Picasso.with(getActivity()).load(event.image).into(image);
-            dateContainer.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                }
-            });
-
-            placeContainer.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                }
-            });
+//            dateContainer.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//
+//                }
+//            });
+//
+//            placeContainer.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//
+//                }
+//            });
 
         }
 
