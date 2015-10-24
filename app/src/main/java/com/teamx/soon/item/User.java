@@ -1,8 +1,11 @@
-package com.teamx.soon;
+package com.teamx.soon.item;
 
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+
+import com.teamx.soon.AppDelegate;
+import com.teamx.soon.GlobalConst;
 
 /**
  * Created by ruler_000 on 04/04/2015.

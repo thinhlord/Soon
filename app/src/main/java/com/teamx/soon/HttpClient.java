@@ -17,6 +17,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestHandle;
 import com.loopj.android.http.RequestParams;
 import com.loopj.android.http.SyncHttpClient;
+import com.teamx.soon.item.User;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,7 +27,7 @@ import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
 
-public class MeBooHttpClient {
+public class HttpClient {
     private static final String BASE_URL = "http://api.meboo.vn/";
 
     private static final String GEOCODING = "http://maps.googleapis.com/maps/api/geocode/json";
@@ -81,7 +82,7 @@ public class MeBooHttpClient {
     private static Context context;
 
     public static void initialize(Context context) {
-        MeBooHttpClient.context = context;
+        HttpClient.context = context;
     }
 
     static RequestHandle get(String subUrl, RequestParams params, AsyncHttpResponseHandler responseHandler) {

@@ -6,6 +6,25 @@ package com.teamx.soon;
  * Project type: Android
  */
 public class GlobalConst {
+    public static final int HEADER = 0;
+    public static final int TAB = 1;
+    public static final int SEPARATOR = 2;
+
+    public static final int[] DRAWER_TAB_TYPE = {
+            TAB,
+            TAB
+    };
+
+    public static final String[] DRAWER_TABS_TEXT = {
+            "Cài đặt",
+            "Thông tin"
+    };
+
+    public static final int[] DRAWER_TABS_ICON = {
+            0,
+            0
+    };
+
     public static final int PROFILE_PIC_SIZE = 200;
     public static final int INJECT_DETAIL_REQ_CODE = 1;
     public static final String EXTRA_IS = "is";
