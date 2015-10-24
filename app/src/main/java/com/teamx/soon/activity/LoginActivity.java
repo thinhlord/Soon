@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.CursorLoader;
+import android.content.Intent;
 import android.content.Loader;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -13,6 +14,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -36,6 +38,7 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
+import com.teamx.soon.HttpClient;
 import com.teamx.soon.R;
 import com.teamx.soon.item.User;
 
@@ -313,6 +316,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mEmailView.setAdapter(adapter);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int responseCode, Intent intent) {
+        super.onActivityResult(requestCode, responseCode, intent);
+        callbackManager.onActivityResult(requestCode, responseCode, intent);
+    }
+
     void fetchFbData(final AccessToken accessToken) {
         GraphRequest request = GraphRequest.newMeRequest(accessToken, new GraphRequest.GraphJSONObjectCallback() {
             @Override
@@ -324,7 +333,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 user.photoUrl = "https://graph.facebook.com/" + user.accId + "/picture?type=large&width=200&height=200";
                 user.email = data.optString("email");
 
-                //afterSocialAccLoggedIn(user);
+                afterSocialAccLoggedIn(user);
             }
         });
         Bundle parameters = new Bundle();
@@ -338,44 +347,26 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     void afterSocialAccLoggedIn(@NonNull final User socialUser) {
+        String android_id = Settings.Secure.getString(getContentResolver(),
+                Settings.Secure.ANDROID_ID);
+        HttpClient.facebookLogin(socialUser, android_id, new HttpClient.CreateResponse() {
+            @Override
+            public void onSuccess(int returnId) {
+                socialUser.id = returnId;
+                User.saveUser(socialUser);
+                afterLogin();
+            }
 
-//        HttpClient.getUser(socialUser.accType, socialUser.accId, new MeBooHttpClient.SingleObjectResponse<User>() {
-//            @Override
-//            public void onSuccess(@Nullable User ourUser) {
-//                if (ourUser == null) {
-//                    // This social account `socialUser` is not connected to any user account on our system
-//                    // So put the social user
-//                    MeBooHttpClient.createUser(socialUser, new MeBooHttpClient.CreateResponse() {
-//                        @Override
-//                        public void onSuccess(int newUserId) {
-//                            // `socialUser` has been registered on our system, assign its id
-//                            socialUser.id = newUserId;
-//                            User.saveUser(socialUser);
-//                            afterLoggedIn();
-//                        }
-//
-//                        @Override
-//                        public void onFailure(String message) {
-//                            meBooLoggingInProgressDialog.dismiss();
-//                            if (BuildConfig.DEBUG) {
-//                                Toast.makeText(SplashActivity.this, message, Toast.LENGTH_LONG).show();
-//                            } else {
-//                                toast(R.string.cannot_perform_whie_offline);
-//                            }
-//                        }
-//                    });
-//                } else {
-//                    // This social account `socialUser` is connected with `ourUser`
-//                    User.saveUser(ourUser);
-//                    afterLoggedIn();
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(String message) {
-//                meBooLoggingInProgressDialog.dismiss();
-//            }
-//        });
+            @Override
+            public void onFailure(String message) {
+
+            }
+        });
+    }
+
+    private void afterLogin() {
+        startActivity(new Intent(this, HomeActivity.class));
+        finish();
     }
 
     private interface ProfileQuery {

@@ -119,6 +119,8 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+        IDrawerItem logoutTab = null;
+
         // Init profile
         if (User.getCurrentUser() != null) {
             ProfileDrawerItem profileDrawerItem = new ProfileDrawerItem()
@@ -146,6 +148,10 @@ public class HomeActivity extends AppCompatActivity {
                         })
                         .withProfileImagesClickable(true)
                         .build();
+
+                logoutTab = new PrimaryDrawerItem()
+                        .withName("Đăng xuất")
+                        .withIdentifier(GlobalConst.LOGOUT_ID);
             }
         } else {
             ProfileDrawerItem profileDrawerItem = new ProfileDrawerItem()
@@ -190,18 +196,13 @@ public class HomeActivity extends AppCompatActivity {
             }
         }
 
-//        IDrawerItem logoutTab = new PrimaryDrawerItem()
-//                .withName("Đăng xuất")
-//                .withIdentifier(GlobalConst.LOGOUT_ID)
-//                .withIcon(R.drawable.ic_logout);
-
         // Init drawer
         if (drawer == null) {
             drawer = new DrawerBuilder().withActivity(this)
                     .withTranslucentStatusBar(true)
                     .withToolbar(toolbar)
                     .addDrawerItems(drawerItems)
-//                    .addStickyDrawerItems(logoutTab)
+                    .addStickyDrawerItems(logoutTab)
                     .withActionBarDrawerToggle(true)
                     .withActionBarDrawerToggleAnimated(true)
                     .withDelayOnDrawerClose(-1)

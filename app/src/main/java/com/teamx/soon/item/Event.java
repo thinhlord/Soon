@@ -12,6 +12,8 @@ public class Event implements Serializable {
     public String image;
     public String des;
     public String date;
+    public String type;
+    public String status;
     public String address;
 
     public static Event troll() {
@@ -23,5 +25,19 @@ public class Event implements Serializable {
         e.des = "Để đánh dấu bề dày lịch sử 150 năm Bia Sài Gòn hiện diện trên thị trường, và nay là một thương hiệu nổi tiếng của Việt Nam, Hypersonic Music Festival - một đại tiệc âm nhạc quy mô lớn sẽ được tổ chức, nằm trong chuỗi các hoạt động kỷ niệm dấu mốc quan trọng này.";
         e.date = "Thứ 7 ngày 8/9/2010";
         return e;
+    }
+
+    public Event(String name, String image, String address, String date, String type, String status, String description) {
+        this.name = name;
+        this.image = image;
+        this.address = address;
+        this.date = date;
+        this.type = type;
+        this.status = status;
+        this.des = description;
+    }
+
+    public Event() {
+
     }
 }

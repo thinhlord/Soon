@@ -21,6 +21,9 @@ public class User {
     public String facebookAccessToken;
     public String email;
     public String photoUrl;
+    public int age;
+    public int gender;
+    public String username;
 
     public long lastUpdated;
 
@@ -41,7 +44,6 @@ public class User {
     }
 
     public static void clearCurrentUser() {
-        //DbController.getInstance().removeUserDb();
         setCurrentUserId(-1);
         currentUser = null;
     }
