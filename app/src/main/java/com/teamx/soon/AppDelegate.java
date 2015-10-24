@@ -18,6 +18,8 @@ package com.teamx.soon;
 
 import android.app.Application;
 
+import com.facebook.FacebookSdk;
+
 
 public class AppDelegate extends Application {
 
@@ -31,7 +33,7 @@ public class AppDelegate extends Application {
     public void onCreate() {
         super.onCreate();
         instance = this;
-
-        //MeBooHttpClient.initialize(this);
+        FacebookSdk.sdkInitialize(this);
+        HttpClient.initialize(this);
     }
 }

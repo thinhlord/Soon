@@ -7,6 +7,7 @@ import java.io.Serializable;
  * Project: Soon
  */
 public class Event implements Serializable {
+    public int id;
     public String name;
     public String image;
     public String des;

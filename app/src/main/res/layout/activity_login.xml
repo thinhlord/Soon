@@ -72,6 +72,16 @@
                 android:text="@string/action_sign_in"
                 android:textStyle="bold" />
 
+            <Button
+                android:id="@+id/facebookBtn"
+                style="@style/FacebookWelcomeBtn"
+                android:layout_height="60dp"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="16dp"
+                android:onClick="onClick"
+                android:singleLine="true"
+                android:text="@string/login_text_fb" />
+
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

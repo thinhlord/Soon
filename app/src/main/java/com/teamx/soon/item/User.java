@@ -17,13 +17,9 @@ public class User {
 
     public int id = -1;
     public String name;
-    public int accType = -1;
     public String accId;
     public String facebookAccessToken;
-    public int gender = -1;
     public String email;
-    public String phoneNumber;
-    public String wardId;
     public String photoUrl;
 
     public long lastUpdated;
@@ -59,13 +55,9 @@ public class User {
             User user = new User();
             user.id = sp.getInt(GlobalConst.SPK_USER_ID, -1);
             user.name = sp.getString(GlobalConst.SPK_USER_NAME, null);
-            user.accType = sp.getInt(GlobalConst.SPK_USER_ACC_TYPE, 0);
             user.accId = sp.getString(GlobalConst.SPK_USER_ACC_ID, null);
-            user.gender = sp.getInt(GlobalConst.SPK_USER_GENDER, 0);
             user.photoUrl = sp.getString(GlobalConst.SPK_USER_PHOTO, null);
             user.email = sp.getString(GlobalConst.SPK_USER_EMAIL, null);
-            user.phoneNumber = sp.getString(GlobalConst.SPK_USER_PHONE, null);
-            user.wardId = sp.getString(GlobalConst.SPK_USER_WARD_ID, null);
             return user;
         }
     }
@@ -75,12 +67,8 @@ public class User {
         SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(AppDelegate.getInstance()).edit();
         editor.putInt(GlobalConst.SPK_USER_ID, user.id);
         editor.putString(GlobalConst.SPK_USER_NAME, user.name);
-        editor.putInt(GlobalConst.SPK_USER_ACC_TYPE, user.accType);
         editor.putString(GlobalConst.SPK_USER_ACC_ID, user.accId);
-        editor.putInt(GlobalConst.SPK_USER_GENDER, user.gender);
         editor.putString(GlobalConst.SPK_USER_EMAIL, user.email);
-        editor.putString(GlobalConst.SPK_USER_PHONE, user.phoneNumber);
-        editor.putString(GlobalConst.SPK_USER_WARD_ID, user.wardId);
         editor.putString(GlobalConst.SPK_USER_PHOTO, user.photoUrl);
         editor.apply();
     }
