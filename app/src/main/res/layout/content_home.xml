@@ -15,13 +15,14 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="20.0sp"
         android:padding="5dp"
         android:text="Sự kiện chém gió" />
 
     <ListView
         android:id="@+id/event_list"
+        android:scrollbars="none"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="20.0sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView3"
