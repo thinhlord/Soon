@@ -8,6 +8,7 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 
 import com.teamx.soon.AppDelegate;
+import com.teamx.soon.GlobalConst;
 import com.teamx.soon.R;
 
 public class SplashActivity extends AppCompatActivity {
@@ -22,13 +23,11 @@ public class SplashActivity extends AppCompatActivity {
             public void run() {
                 //Do something after 1500ms
                 SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(AppDelegate.getInstance());
-//                if (sp.getInt(GlobalConst.SPK_FIRST_TIME, -1) != -1) {
-//                    startActivity(new Intent(SplashActivity.this, HomeActivity.class));
-//                } else {
-//                    startActivity(new Intent(SplashActivity.this, IntroActivity.class));
-//                }
-                startActivity(new Intent(SplashActivity.this, HomeActivity.class));
-
+                if (sp.getInt(GlobalConst.SPK_FIRST_TIME, -1) != -1) {
+                    startActivity(new Intent(SplashActivity.this, HomeActivity.class));
+                } else {
+                    startActivity(new Intent(SplashActivity.this, IntroActivity.class));
+                }
                 SplashActivity.this.finish();
             }
         }, 1500);

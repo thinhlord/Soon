@@ -14,5 +14,14 @@ public class Event implements Serializable {
     public String date;
     public String address;
 
-
+    public static Event troll() {
+        Event e = new Event();
+        e.id = 0;
+        e.name = "Bia Saigon Hypersonic Music Festival";
+        e.image = "https://media-ticketbox.cdn.vccloud.vn/eventcover/2015/10/13/D74C46.jpg?w=555&maxheight=210&mode=crop&anchor=topcenter";
+        e.address = "TP Hồ Chí Minh";
+        e.des = "Để đánh dấu bề dày lịch sử 150 năm Bia Sài Gòn hiện diện trên thị trường, và nay là một thương hiệu nổi tiếng của Việt Nam, Hypersonic Music Festival - một đại tiệc âm nhạc quy mô lớn sẽ được tổ chức, nằm trong chuỗi các hoạt động kỷ niệm dấu mốc quan trọng này.";
+        e.date = "Thứ 7 ngày 8/9/2010";
+        return e;
+    }
 }

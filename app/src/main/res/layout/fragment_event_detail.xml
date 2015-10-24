@@ -15,7 +15,7 @@
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/map"
+                android:id="@+id/event_image"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:contentDescription="@string/app_name"
@@ -29,7 +29,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/activity_place_detail_name"
+                    android:id="@+id/event_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Việt Nam vô đối"
@@ -41,8 +41,10 @@
                     android:layout_height="10dp" />
 
                 <LinearLayout
+                    android:id="@+id/event_place_container"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@android:drawable/list_selector_background"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
@@ -54,6 +56,7 @@
 
 
                     <TextView
+                        android:id="@+id/event_place"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="4dp"
@@ -69,8 +72,10 @@
                     android:layout_height="25dp" />
 
                 <LinearLayout
+                    android:id="@+id/event_date_container"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@android:drawable/list_selector_background"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
@@ -82,6 +87,7 @@
 
 
                     <TextView
+                        android:id="@+id/event_date"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="4dp"
@@ -125,6 +131,7 @@
                     android:layout_height="10dp" />
 
                 <TextView
+                    android:id="@+id/event_des"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Chỗ này chán vãi" />

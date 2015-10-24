@@ -1,12 +1,15 @@
 package com.teamx.soon;
 
 
-import android.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.teamx.soon.item.Event;
 
 
@@ -16,13 +19,9 @@ import com.teamx.soon.item.Event;
  * create an instance of this fragment.
  */
 public class EventDetailFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
+    private static final String PARAM_EVENT = "param1";
 
-    // TODO: Rename and change types of parameters
-    private Event mParam1;
-
+    private Event event;
 
     public EventDetailFragment() {
         // Required empty public constructor
@@ -35,11 +34,10 @@ public class EventDetailFragment extends Fragment {
      * @param param1 Parameter 1.
      * @return A new instance of fragment EventDetailFragment.
      */
-    // TODO: Rename and change types and number of parameters
     public static EventDetailFragment newInstance(Event param1) {
         EventDetailFragment fragment = new EventDetailFragment();
         Bundle args = new Bundle();
-        args.putSerializable(ARG_PARAM1, param1);
+        args.putSerializable(PARAM_EVENT, param1);
         fragment.setArguments(args);
         return fragment;
     }
@@ -48,7 +46,7 @@ public class EventDetailFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = (Event) getArguments().getSerializable(ARG_PARAM1);
+            event = (Event) getArguments().getSerializable(PARAM_EVENT);
         }
     }
 
@@ -56,8 +54,39 @@ public class EventDetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_event_detail, container, false);
+        View view = inflater.inflate(R.layout.fragment_event_detail, container, false);
 
+        if (event != null) {
+            TextView name = (TextView) view.findViewById(R.id.event_name);
+            TextView place = (TextView) view.findViewById(R.id.event_place);
+            TextView date = (TextView) view.findViewById(R.id.event_date);
+            TextView des = (TextView) view.findViewById(R.id.event_des);
+            ImageView image = (ImageView) view.findViewById(R.id.event_image);
+            View dateContainer = view.findViewById(R.id.event_date_container);
+            View placeContainer = view.findViewById(R.id.event_place_container);
+
+            name.setText(event.name);
+            place.setText(event.address);
+            date.setText(event.date);
+            des.setText(event.des);
+            Picasso.with(getActivity()).load(event.image).into(image);
+            dateContainer.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
+
+            placeContainer.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
+
+        }
+
+        return view;
     }
 
 

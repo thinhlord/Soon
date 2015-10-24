@@ -1,12 +1,18 @@
 package com.teamx.soon.activity;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.DefaultSliderView;
+import com.teamx.soon.AppDelegate;
+import com.teamx.soon.GlobalConst;
 import com.teamx.soon.R;
 
 public class IntroActivity extends AppCompatActivity {
@@ -52,4 +58,16 @@ public class IntroActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void onLoginButtonClick(View view) {
+        startActivity(new Intent(this, LoginActivity.class));
+        finish();
+    }
+
+    public void onLaterButtonClick(View view) {
+        SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(AppDelegate.getInstance()).edit();
+        editor.putInt(GlobalConst.SPK_FIRST_TIME, 1);
+        editor.apply();
+        startActivity(new Intent(this, HomeActivity.class));
+        finish();
+    }
 }

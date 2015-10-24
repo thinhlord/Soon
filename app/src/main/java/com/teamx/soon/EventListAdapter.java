@@ -9,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.teamx.soon.activity.EventActivity;
 import com.teamx.soon.item.Event;
 
@@ -66,6 +67,7 @@ public class EventListAdapter extends BaseAdapter {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(mContext, EventActivity.class);
+                    intent.putExtra("event", event);
                     mContext.startActivity(intent);
                 }
             });
@@ -73,7 +75,7 @@ public class EventListAdapter extends BaseAdapter {
 
             viewHolder.name.setText(event.name);
             viewHolder.date.setText(event.date);
-
+            Picasso.with(mContext).load(event.image).into(viewHolder.image);
         }
         return convertView;
     }

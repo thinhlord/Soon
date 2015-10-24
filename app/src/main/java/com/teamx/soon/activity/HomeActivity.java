@@ -1,6 +1,7 @@
 package com.teamx.soon.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ListView;
 
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
@@ -24,14 +26,22 @@ import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader;
 import com.mikepenz.materialdrawer.util.DrawerImageLoader;
 import com.squareup.picasso.Picasso;
+import com.teamx.soon.EventListAdapter;
 import com.teamx.soon.GlobalConst;
 import com.teamx.soon.R;
+import com.teamx.soon.item.Event;
+import com.teamx.soon.item.User;
+
+import java.util.ArrayList;
 
 public class HomeActivity extends AppCompatActivity {
 
     public Drawer drawer;
     AccountHeader header;
     Toolbar toolbar;
+    ArrayList<Event> events = new ArrayList<>();
+    EventListAdapter eventListAdapter;
+    ListView eventListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +58,18 @@ public class HomeActivity extends AppCompatActivity {
 //                        .setAction("Action", null).show();
 //            }
 //        });
+
+        // Fun data
+        events.add(Event.troll());
+        events.add(Event.troll());
+        events.add(Event.troll());
+        events.add(Event.troll());
+        events.add(Event.troll());
+        events.add(Event.troll());
+        events.add(Event.troll());
+        eventListView = (ListView) findViewById(R.id.event_list);
+        eventListAdapter = new EventListAdapter(this, events);
+        eventListView.setAdapter(eventListAdapter);
 
         setupDrawer();
 
@@ -98,35 +120,53 @@ public class HomeActivity extends AppCompatActivity {
         });
 
         // Init profile
-//        ProfileDrawerItem profileDrawerItem = new ProfileDrawerItem()
-//                .withName(User.getCurrentUser().name)
-//                .withEmail(User.getCurrentUser().email)
-//                .withIcon(User.getCurrentUser().photoUrl);
+        if (User.getCurrentUser() != null) {
+            ProfileDrawerItem profileDrawerItem = new ProfileDrawerItem()
+                    .withName(User.getCurrentUser().name)
+                    .withEmail(User.getCurrentUser().email)
+                    .withIcon(User.getCurrentUser().photoUrl);
 
-        ProfileDrawerItem profileDrawerItem = new ProfileDrawerItem()
-                .withName("no")
-                .withEmail("noo");
-
-        // Init profile header
-        if (header == null) {
-            header = new AccountHeaderBuilder()
-                    .withActivity(this)
-                    .withHeaderBackground(R.drawable.side_nav_bar)
-                    .addProfiles(profileDrawerItem)
-                    .withSelectionListEnabledForSingleProfile(false)
-                    .withOnAccountHeaderSelectionViewClickListener(new AccountHeader.OnAccountHeaderSelectionViewClickListener() {
-                        @Override
-                        public boolean onClick(View view, IProfile iProfile) {
+            // Init profile header
+            if (header == null) {
+                header = new AccountHeaderBuilder()
+                        .withActivity(this)
+                        .withHeaderBackground(R.drawable.side_nav_bar)
+                        .addProfiles(profileDrawerItem)
+                        .withSelectionListEnabledForSingleProfile(false)
+                        .withOnAccountHeaderSelectionViewClickListener(new AccountHeader.OnAccountHeaderSelectionViewClickListener() {
+                            @Override
+                            public boolean onClick(View view, IProfile iProfile) {
 //                            if (BuildConfig.DEBUG){
 //                                drawer.closeDrawer();
 //                                Intent profileIntent = new Intent(HomeActivity.this, ProfileActivity.class);
 //                                startActivity(profileIntent);
 //                            }
-                            return true;
-                        }
-                    })
-                    .withProfileImagesClickable(true)
-                    .build();
+                                return true;
+                            }
+                        })
+                        .withProfileImagesClickable(true)
+                        .build();
+            }
+        } else {
+            ProfileDrawerItem profileDrawerItem = new ProfileDrawerItem()
+                    .withName("Đăng nhập");
+
+            if (header == null) {
+                header = new AccountHeaderBuilder()
+                        .withActivity(this)
+                        .withHeaderBackground(R.drawable.side_nav_bar)
+                        .addProfiles(profileDrawerItem)
+                        .withSelectionListEnabledForSingleProfile(false)
+                        .withOnAccountHeaderSelectionViewClickListener(new AccountHeader.OnAccountHeaderSelectionViewClickListener() {
+                            @Override
+                            public boolean onClick(View view, IProfile iProfile) {
+                                startActivity(new Intent(HomeActivity.this, LoginActivity.class));
+                                return true;
+                            }
+                        })
+                        .withProfileImagesClickable(true)
+                        .build();
+            }
         }
 
         // Init drawer items

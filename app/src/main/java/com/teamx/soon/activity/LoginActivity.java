@@ -42,6 +42,7 @@ import com.teamx.soon.item.User;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static android.Manifest.permission.READ_CONTACTS;
@@ -330,6 +331,51 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         parameters.putString("fields", "id,name,gender,email");
         request.setParameters(parameters);
         request.executeAsync();
+    }
+
+    public void onFacebookClick(View view) {
+        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile", "email"));
+    }
+
+    void afterSocialAccLoggedIn(@NonNull final User socialUser) {
+
+//        HttpClient.getUser(socialUser.accType, socialUser.accId, new MeBooHttpClient.SingleObjectResponse<User>() {
+//            @Override
+//            public void onSuccess(@Nullable User ourUser) {
+//                if (ourUser == null) {
+//                    // This social account `socialUser` is not connected to any user account on our system
+//                    // So put the social user
+//                    MeBooHttpClient.createUser(socialUser, new MeBooHttpClient.CreateResponse() {
+//                        @Override
+//                        public void onSuccess(int newUserId) {
+//                            // `socialUser` has been registered on our system, assign its id
+//                            socialUser.id = newUserId;
+//                            User.saveUser(socialUser);
+//                            afterLoggedIn();
+//                        }
+//
+//                        @Override
+//                        public void onFailure(String message) {
+//                            meBooLoggingInProgressDialog.dismiss();
+//                            if (BuildConfig.DEBUG) {
+//                                Toast.makeText(SplashActivity.this, message, Toast.LENGTH_LONG).show();
+//                            } else {
+//                                toast(R.string.cannot_perform_whie_offline);
+//                            }
+//                        }
+//                    });
+//                } else {
+//                    // This social account `socialUser` is connected with `ourUser`
+//                    User.saveUser(ourUser);
+//                    afterLoggedIn();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(String message) {
+//                meBooLoggingInProgressDialog.dismiss();
+//            }
+//        });
     }
 
     private interface ProfileQuery {

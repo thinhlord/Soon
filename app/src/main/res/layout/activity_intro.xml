@@ -19,26 +19,18 @@
             android:layout_height="0dp"
             android:layout_weight="4" />
 
-        <LinearLayout
+        <Button
+            android:id="@+id/login_now"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:orientation="horizontal">
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Đăng kí" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Đăng nhập" />
-        </LinearLayout>
+            android:onClick="onLoginButtonClick"
+            android:text="Đăng kí / Đăng nhập" />
 
         <Button
+            android:id="@+id/login_later"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="onLaterButtonClick"
             android:text="Vào tạm app cái đã" />
 
     </LinearLayout>
