@@ -122,17 +122,13 @@ public class HttpClient {
                     User user = new User();
                     user.id = userData.optInt("user_id");
                     user.name = userData.optString("name");
-                    user.accType = accType;
                     if (accType == GlobalConst.ACC_TYPE_FB) {
                         user.accId = userData.optString("facebook_id");
                         user.facebookAccessToken = userData.optString("facebook_access_token");
                     } else if (accType == GlobalConst.ACC_TYPE_GG) {
                         user.accId = userData.optString("google_id");
                     }
-                    user.gender = userData.optInt("gender");
                     user.email = userData.optString("email");
-                    if (!userData.isNull("phone")) user.phoneNumber = userData.optString("phone");
-                    if (!userData.isNull("ward")) user.wardId = userData.optString("ward");
                     user.photoUrl = userData.optString("photo");
                     user.lastUpdated = userData.optLong("last_updated");
 
@@ -151,14 +147,6 @@ public class HttpClient {
         RequestParams params = new RequestParams();
 
         params.put("name", user.name);
-        params.put("type", user.accType);
-        if (user.accType == GlobalConst.ACC_TYPE_FB) {
-            params.put("facebook_id", user.accId);
-            params.put("facebook_access_token", user.facebookAccessToken);
-        } else {
-            params.put("google_id", user.accId);
-        }
-        params.put("gender", user.gender);
         params.put("email", user.email);
         params.put("photo", user.photoUrl);
         params.put("last_updated", user.lastUpdated);
@@ -173,33 +161,6 @@ public class HttpClient {
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 createResponse.onFailure(throwable.getMessage());
-            }
-        });
-    }
-
-    public static RequestHandle editUser(@NonNull User user, final NoArgumentResponse rep){
-        RequestParams params = new RequestParams();
-        params.put("user_id", user.id);
-        params.put("ward", user.wardId);
-        params.put("phone", user.phoneNumber);
-        params.put("email", user.email);
-
-        return post(SUB_EDIT_USER, params, new JsonHttpResponseHandler(){
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                if (rep != null) rep.onSuccess();
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                if (rep != null)
-                    rep.onFailure(cumulativeErrorMessage(statusCode, throwable, errorResponse));
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                if (rep != null)
-                    rep.onFailure(cumulativeErrorMessage(statusCode, responseString, throwable));
             }
         });
     }
