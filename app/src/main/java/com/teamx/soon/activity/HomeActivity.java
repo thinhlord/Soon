@@ -209,7 +209,6 @@ public class HomeActivity extends AppCompatActivity {
                     .withTranslucentStatusBar(true)
                     .withToolbar(toolbar)
                     .addDrawerItems(drawerItems)
-                    .addStickyDrawerItems(logoutTab)
                     .withActionBarDrawerToggle(true)
                     .withActionBarDrawerToggleAnimated(true)
                     .withDelayOnDrawerClose(-1)
@@ -230,6 +229,7 @@ public class HomeActivity extends AppCompatActivity {
 
                     })
                     .build();
+            if (logoutTab != null) drawer.addStickyFooterItem(logoutTab);
         }
     }
 }

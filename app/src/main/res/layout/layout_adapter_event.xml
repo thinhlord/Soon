@@ -66,17 +66,6 @@
                     android:textColor="@color/color_primary_text"
                     android:textSize="@dimen/size_text_secondary" />
 
-                <TextView
-                    android:id="@+id/event_category"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/event_date"
-                    android:paddingBottom="8dp"
-                    android:paddingTop="8dp"
-                    android:text="Lorem ipsum dolor"
-                    android:textColor="@color/color_secondary_text"
-                    android:textSize="@dimen/size_text_primary" />
-
             </LinearLayout>
 
         </RelativeLayout>

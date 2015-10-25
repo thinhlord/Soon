@@ -17,6 +17,7 @@ import com.loopj.android.http.RequestHandle;
 import com.loopj.android.http.RequestParams;
 import com.loopj.android.http.SyncHttpClient;
 import com.teamx.soon.item.Event;
+import com.teamx.soon.item.Feedback;
 import com.teamx.soon.item.User;
 
 import org.json.JSONArray;
@@ -37,6 +38,7 @@ public class HttpClient {
 
     private static final String SUB_GET_EVENT = "event/getEvent";
     private static final String SUB_GET_EVENT_BY_USER = "http://128.199.167.255/hatch/event/getEventByUser";
+    private static final String SUB_GET_FEEDBACK = "feedback/getFeedbackByEvent";
 
     private static AsyncHttpClient client = new AsyncHttpClient();
     private static AsyncHttpClient syncClient = new SyncHttpClient();
@@ -110,7 +112,7 @@ public class HttpClient {
                     ArrayList<Event> eventList = new ArrayList<Event>();
                     for (int i = 0; i < eventJson.length(); i++) {
                         JSONObject c = eventJson.getJSONObject(i);
-
+                        int id = c.optInt("id");
                         String name = c.optString("name");
                         String image = c.optString("images");
                         String description = c.optString("description");
@@ -120,10 +122,43 @@ public class HttpClient {
                         String type = c.optString("type");
 
                         Event event = new Event(name, image, address, date, type, status, description);
+                        event.id = id;
                         eventList.add(event);
                     }
                     eventResponse.onSuccess(eventList);
                 } catch (JSONException ignore) {
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                eventResponse.onFailure(throwable.getMessage());
+            }
+        });
+    }
+
+    public static RequestHandle getFeedback(Event event, final ListResponse<Feedback> eventResponse) {
+        RequestParams params = new RequestParams();
+
+        params.put("event_id", event.id);
+
+        return get(SUB_GET_FEEDBACK, params, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                try {
+                    JSONArray eventJson = response.getJSONArray("data").getJSONArray(0);
+                    ArrayList<Feedback> eventList = new ArrayList<>();
+                    for (int i = 0; i < eventJson.length(); i++) {
+                        Feedback feedback = new Feedback();
+                        JSONObject c = eventJson.getJSONObject(i);
+                        feedback.id = c.optInt("id");
+                        feedback.content = c.optString("question_content");
+                        feedback.type = c.getInt("question_type");
+                        eventList.add(feedback);
+                    }
+                    eventResponse.onSuccess(eventList);
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
             }
 
