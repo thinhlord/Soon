@@ -14,15 +14,17 @@ import com.teamx.soon.item.Event;
 public class EventPagerAdapter extends FragmentPagerAdapter {
 
     EventDetailFragment eventDetailFragment;
+    EventCommentFragment eventCommentFragment;
 
     public EventPagerAdapter(FragmentManager fm, Event event) {
         super(fm);
         eventDetailFragment = EventDetailFragment.newInstance(event);
+        eventCommentFragment = EventCommentFragment.newInstance("", "");
     }
 
     @Override
     public int getCount() {
-        return 3;
+        return 2;
     }
 
     @Override
@@ -31,8 +33,6 @@ public class EventPagerAdapter extends FragmentPagerAdapter {
             case 0:
                 return "Chi tiết";
             case 1:
-                return "Ảnh";
-            case 2:
                 return "Bình luận";
         }
         return null;
@@ -44,9 +44,7 @@ public class EventPagerAdapter extends FragmentPagerAdapter {
             case 0:
                 return eventDetailFragment;
             case 1:
-                return PlaceholderFragment.newInstance(position + 1);
-            case 2:
-                return PlaceholderFragment.newInstance(position + 1);
+                return eventCommentFragment;
         }
         return null;
     }

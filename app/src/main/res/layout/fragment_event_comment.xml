@@ -4,10 +4,8 @@
     android:layout_height="match_parent"
     tools:context="com.teamx.soon.EventCommentFragment">
 
-    <ListView
-        android:id="@+id/comment_list"
+    <ImageView
+        android:src="@drawable/interactive"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-    </ListView>
+        android:layout_height="match_parent" />
 </FrameLayout>
