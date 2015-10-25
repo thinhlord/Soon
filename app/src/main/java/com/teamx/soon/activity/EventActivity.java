@@ -46,7 +46,7 @@ public class EventActivity extends AppCompatActivity {
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
 
-        Event event = (Event) getIntent().getSerializableExtra("event");
+        final Event event = (Event) getIntent().getSerializableExtra("event");
         if (event != null) {
             eventPagerAdapter = new EventPagerAdapter(getSupportFragmentManager(), event);
             // Set up the ViewPager with the sections adapter.
@@ -67,7 +67,9 @@ public class EventActivity extends AppCompatActivity {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        startActivity(new Intent(EventActivity.this, FeedbackActivity.class));
+                        Intent i = new Intent(EventActivity.this, FeedbackActivity.class);
+                        i.putExtra("event", event);
+                        startActivity(i);
                     }
                 }, 1500);
             }
