@@ -16,6 +16,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestHandle;
 import com.loopj.android.http.RequestParams;
 import com.loopj.android.http.SyncHttpClient;
+import com.teamx.soon.item.Comment;
 import com.teamx.soon.item.Event;
 import com.teamx.soon.item.User;
 
@@ -37,6 +38,8 @@ public class HttpClient {
 
     private static final String SUB_GET_EVENT = "event/getEvent";
     private static final String SUB_GET_EVENT_BY_USER = "http://128.199.167.255/hatch/event/getEventByUser";
+    private static final String SUB_ADD_COMMENT = "comment/add";
+    private static final String SUB_GET_COMMENT_BY_EVENT = "comment/getCommentByEvent";
 
     private static AsyncHttpClient client = new AsyncHttpClient();
     private static AsyncHttpClient syncClient = new SyncHttpClient();
@@ -170,6 +173,63 @@ public class HttpClient {
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 eventResponse.onFailure(throwable.getMessage());
+            }
+        });
+    }
+
+    public static RequestHandle addComment(@NonNull Comment comment, final CreateResponse createResponse) {
+        RequestParams params = new RequestParams();
+
+        params.put("comment_content", comment.comment_content);
+        params.put("created_by", comment.comment_content);
+        params.put("event_id", comment.event_id);
+
+        return post(SUB_ADD_COMMENT, params, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                createResponse.onSuccess(1);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                createResponse.onFailure(throwable.getMessage());
+            }
+        });
+    }
+
+    public static RequestHandle getCommentByEvent(@NonNull int event_id, @NonNull int limit, @NonNull int offset, final ListResponse<Comment> commentResponse) {
+        RequestParams params = new RequestParams();
+
+        params.put("event_id", event_id + "");
+        params.put("limit", limit + "");
+        params.put("offset", offset + "");
+
+        return get(SUB_GET_COMMENT_BY_EVENT, params, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                try {
+                    JSONArray commentJson = response.getJSONArray("data");
+                    ArrayList<Comment> commentList = new ArrayList<>();
+
+                    for (int i = 0; i < commentJson.length(); i++) {
+                        JSONObject c = commentJson.getJSONObject(i);
+
+                        Comment comment = new Comment();
+                        comment.comment_content = c.optString("comment_content");
+                        comment.created_by = c.optString("created_by");
+                        comment.event_id = c.optString("event_id");
+
+                        commentList.add(comment);
+                        commentResponse.onSuccess(commentList);
+                    }
+                } catch (JSONException e) {
+
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                commentResponse.onFailure(throwable.getMessage());
             }
         });
     }

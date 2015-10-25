@@ -5,4 +5,7 @@ package com.teamx.soon.item;
  * Project: Soon
  */
 public class Comment {
+    public String comment_content;
+    public String created_by;
+    public String event_id;
 }
