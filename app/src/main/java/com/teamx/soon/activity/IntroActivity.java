@@ -27,10 +27,10 @@ public class IntroActivity extends AppCompatActivity {
         sliderShow = (SliderLayout) findViewById(R.id.slider);
 
         DefaultSliderView sliderView = new DefaultSliderView(this);
-        sliderView.image(R.mipmap.ic_launcher);
+        sliderView.image(R.drawable.event_1);
         sliderShow.addSlider(sliderView);
         sliderView = new DefaultSliderView(this);
-        sliderView.image(R.drawable.ic_logo);
+        sliderView.image(R.drawable.event_2);
         sliderShow.addSlider(sliderView);
         sliderShow.startAutoCycle();
 

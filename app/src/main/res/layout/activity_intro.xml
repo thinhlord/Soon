@@ -24,14 +24,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onLoginButtonClick"
-            android:text="Đăng kí / Đăng nhập" />
+            android:text="Đăng nhập ứng dụng" />
 
         <Button
             android:id="@+id/login_later"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onLaterButtonClick"
-            android:text="Vào tạm app cái đã" />
+            android:text="Cảm ơn, không cần đăng nhập" />
 
     </LinearLayout>
 
