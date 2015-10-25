@@ -62,7 +62,7 @@ public class FeedbackListAdapter extends BaseAdapter {
         final Feedback event = events.get(position);
         if (event != null) {
 
-            viewHolder.number.setText(position + "");
+            viewHolder.number.setText((position + 1) + "");
             viewHolder.content.setText(event.content);
             if (event.type == 1) {
                 viewHolder.answerText.setVisibility(View.GONE);

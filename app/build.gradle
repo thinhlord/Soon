@@ -46,5 +46,7 @@ dependencies {
 
     // Facebook API
     compile 'com.facebook.android:facebook-android-sdk:4.7.0'
-
+    compile('com.afollestad.material-dialogs:commons:0.8.4.2@aar') {
+        transitive = true
+    }
 }

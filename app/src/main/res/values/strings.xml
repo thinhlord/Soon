@@ -26,11 +26,12 @@
     <string name="title_activity_guide_book">GuideBookActivity</string>
     <string name="large_text">Fuck this shit
     </string>
-    <string name="title_activity_event">EventActivity</string>
+    <string name="title_activity_event">Sự kiện</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="login_text_fb">Đăng nhập với facebook</string>
     <string name="warning_login_error">Có lỗi xảy ra. Vui lòng thử lại sau.</string>
     <string name="title_activity_profile">ProfileActivity</string>
+    <string name="title_activity_no">NoActivity</string>
 </resources>
