@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
@@ -30,6 +31,7 @@ import com.teamx.soon.EventListAdapter;
 import com.teamx.soon.GlobalConst;
 import com.teamx.soon.HttpClient;
 import com.teamx.soon.R;
+import com.teamx.soon.item.Comment;
 import com.teamx.soon.item.Event;
 import com.teamx.soon.item.User;
 
@@ -79,8 +81,6 @@ public class HomeActivity extends AppCompatActivity {
 
             }
         });
-
-
 
         setupDrawer();
 
