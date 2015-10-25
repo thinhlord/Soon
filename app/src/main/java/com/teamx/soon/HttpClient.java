@@ -112,7 +112,7 @@ public class HttpClient {
                         JSONObject c = eventJson.getJSONObject(i);
 
                         String name = c.optString("name");
-                        String image = getAbsoluteUrl(c.optString("image"));
+                        String image = c.optString("images");
                         String description = c.optString("description");
                         String status = c.optString("status");
                         String date = c.optString("date");
@@ -134,7 +134,7 @@ public class HttpClient {
         });
     }
 
-    public static RequestHandle getEventByUser(@NonNull String userId, @NonNull int limit, @NonNull int offset,  final ListResponse<Event> eventResponse) {
+    public static RequestHandle getEventByUser(@NonNull String userId, @NonNull int limit, @NonNull int offset, final ListResponse<Event> eventResponse) {
         RequestParams params = new RequestParams();
 
         params.put("user_id", userId);

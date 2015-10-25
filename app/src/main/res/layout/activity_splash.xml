@@ -10,13 +10,12 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.teamx.soon.activity.SplashActivity">
 
-    <TextView
+    <ImageView
         android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:drawableTop="@drawable/ic_logo"
-        android:text=""
+        android:drawableTop="@drawable/ic_logo_trans"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 </RelativeLayout>

@@ -32,4 +32,5 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="login_text_fb">Đăng nhập với facebook</string>
     <string name="warning_login_error">Có lỗi xảy ra. Vui lòng thử lại sau.</string>
+    <string name="title_activity_profile">ProfileActivity</string>
 </resources>

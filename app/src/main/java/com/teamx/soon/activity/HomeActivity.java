@@ -28,6 +28,7 @@ import com.mikepenz.materialdrawer.util.DrawerImageLoader;
 import com.squareup.picasso.Picasso;
 import com.teamx.soon.EventListAdapter;
 import com.teamx.soon.GlobalConst;
+import com.teamx.soon.HttpClient;
 import com.teamx.soon.R;
 import com.teamx.soon.item.Event;
 import com.teamx.soon.item.User;
@@ -60,16 +61,26 @@ public class HomeActivity extends AppCompatActivity {
 //        });
 
         // Fun data
-        events.add(Event.troll());
-        events.add(Event.troll());
-        events.add(Event.troll());
-        events.add(Event.troll());
-        events.add(Event.troll());
-        events.add(Event.troll());
-        events.add(Event.troll());
+
         eventListView = (ListView) findViewById(R.id.event_list);
         eventListAdapter = new EventListAdapter(this, events);
         eventListView.setAdapter(eventListAdapter);
+
+        HttpClient.getEvent(10, 0, new HttpClient.ListResponse<Event>() {
+            @Override
+            public void onSuccess(ArrayList<Event> objects) {
+                events = objects;
+                eventListAdapter = new EventListAdapter(HomeActivity.this, events);
+                eventListView.setAdapter(eventListAdapter);
+            }
+
+            @Override
+            public void onFailure(String message) {
+
+            }
+        });
+
+
 
         setupDrawer();
 
@@ -138,11 +149,7 @@ public class HomeActivity extends AppCompatActivity {
                         .withOnAccountHeaderSelectionViewClickListener(new AccountHeader.OnAccountHeaderSelectionViewClickListener() {
                             @Override
                             public boolean onClick(View view, IProfile iProfile) {
-//                            if (BuildConfig.DEBUG){
-//                                drawer.closeDrawer();
-//                                Intent profileIntent = new Intent(HomeActivity.this, ProfileActivity.class);
-//                                startActivity(profileIntent);
-//                            }
+                                startActivity(new Intent(HomeActivity.this, ProfileActivity.class));
                                 return true;
                             }
                         })

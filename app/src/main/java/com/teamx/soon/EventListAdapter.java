@@ -76,7 +76,7 @@ public class EventListAdapter extends BaseAdapter {
             viewHolder.name.setText(event.name);
             viewHolder.date.setText(event.date);
             viewHolder.place.setText(event.address);
-            Picasso.with(mContext).load(event.image).into(viewHolder.image);
+            Picasso.with(mContext).load(event.image).placeholder(R.drawable.ic_logo).into(viewHolder.image);
         }
         return convertView;
     }

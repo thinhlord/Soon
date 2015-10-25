@@ -17,6 +17,7 @@
             android:id="@+id/event_image"
             android:layout_width="match_parent"
             android:layout_height="150dp"
+            android:background="@android:color/white"
             android:contentDescription="@string/app_name"
             android:src="@drawable/ic_logo" />
 
@@ -77,26 +78,6 @@
                     android:textSize="@dimen/size_text_primary" />
 
             </LinearLayout>
-
-
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="1dp"
-                android:layout_below="@id/eventBody"
-                android:background="@color/color_window_background" />
-
-            <Button
-                android:id="@+id/btnDetails"
-                style="?android:attr/borderlessButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignRight="@id/eventBody"
-                android:layout_below="@id/eventBody"
-                android:background="@android:color/transparent"
-                android:ellipsize="none"
-                android:paddingTop="16dp"
-                android:text="DETAILS"
-                android:textColor="@color/color_accent" />
 
         </RelativeLayout>
     </LinearLayout>
